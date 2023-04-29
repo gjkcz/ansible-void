@@ -1,0 +1,230 @@
+---
+- name: SSH
+  hosts: all
+
+  tasks:
+    - name: Ensure root ssh directory exists
+      file:
+        path: /root/.ssh
+        state: directory
+
+    - name: Import SSH keys
+      authorized_key:
+        user: root
+        key: '{{ item }}'
+        state: present
+      loop: '{{ ssh_keys }}'
+
+
+- name: General
+  hosts: all
+
+  tasks:
+    - name: Install Software
+      community.general.xbps:
+        name:
+          - avahi
+          - chrony
+        state: present
+
+    - name: Enable Avahi service
+      community.general.runit:
+        name: avahi-daemon
+        enabled: true
+        state: started
+
+    - name: Enable Chrony service
+      community.general.runit:
+        name: chronyd
+        enabled: true
+        state: started
+
+    - name: Disable wpa_supplicant
+      community.general.runit:
+        name: wpa_supplicant
+        enabled: false
+        state: stopped
+
+    - name: Disable redundant TTYs
+      community.general.runit:
+        name: '{{ item }}'
+        enabled: false
+        state: stopped
+      loop:
+        - agetty-tty3
+        - agetty-tty4
+        - agetty-tty5
+        - agetty-tty6
+
+
+- name: Users
+  hosts: all
+
+  tasks:
+    - name: Set bash as default shell for root
+      user:
+        name: root
+        shell: /bin/bash
+
+    - name: User student
+      user:
+        name: student
+        password: $6$7Z.h8Q6CO9AevdIp$8W2nuvD7ZqeXBO.Azsayx2tJ4L0KD44hOz5aNzpGPN/hUtaROvmY7aJ0x7Ie3CPawp6lV4ln2fHQQ7V5Yuy7k0
+        groups:
+          # Arduino serial access
+          - dialout
+        state: present
+
+    - name: Lock bash configuration files for student
+      # Can be removed after LDAP setup
+      file:
+        path: '{{ item }}'
+        owner: root
+        group: root
+        mode: 644
+        state: touch
+      loop:
+        - /home/student/.bashrc
+        - /home/student/.bash_profile
+
+    - name: Disable SSH for user student
+      ansible.builtin.lineinfile:
+        path: "/etc/ssh/sshd_config"
+        line: "DenyUsers student"
+        create: true
+
+
+- name: Software
+  hosts: all
+
+  tasks:
+    - name: Add non-free repository
+      community.general.xbps:
+        name: void-repo-nonfree
+        state: present
+
+    - name: Upgrade all packages
+      community.general.xbps:
+        upgrade: true
+
+    - name: Install packages
+      community.general.xbps:
+        name: '{{ xbps_install }}'
+        state: present
+      when: xbps_install
+
+    - name: Recursively remove packages
+      community.general.xbps:
+        name: '{{ xbps_remove }}'
+        state: absent
+        recurse: true
+      when: xbps_remove
+
+
+- name: Gnome
+  hosts: all
+
+  handlers:
+    - name: Update dconf database
+      command: 'dconf update'
+
+  tasks:
+    - name: Install Gnome
+      community.general.xbps:
+        name:
+          - dbus
+          - gnome
+          - gnome-apps
+          - gdm
+          - xorg  # Prevents a crash on some systems
+          - mesa-vdpau
+          - mesa-vaapi
+          - pipewire
+        state: present
+
+    - name: Enable services
+      community.general.runit:
+        name: '{{ item }}'
+        enabled: true
+        state: started
+      loop:
+        - dbus
+        - gdm
+
+    - name: Enable autologin
+      copy:
+        src: 'files/desktop/autologin'
+        dest: '/etc/gdm/custom.conf'
+      notify: Update dconf database
+
+    - name: Ensure directories exist
+      file:
+        path: '{{item}}'
+        state: directory
+      loop:
+        - /etc/dconf/db/local.d
+        - /etc/dconf/db/local.d/locks
+
+    - name: Create user profile
+      copy:
+        src: 'files/desktop/profile/user'
+        dest: '/etc/dconf/profile/user'
+
+    - name: Copy configuration files
+      copy:
+        src: 'files/desktop/main'
+        dest: '/etc/dconf/db/local.d/main'
+      notify: Update dconf database
+
+    - name: Set screen timeout
+      template:
+        src: 'files/desktop/screensaver'
+        dest: '/etc/dconf/db/local.d/screensaver'
+      notify: Update dconf database
+
+
+- name: GRUB
+  hosts: all
+
+  handlers:
+    - name: grub-mkconfig
+      command: 'grub-mkconfig -o /boot/grub/grub.cfg'
+
+  tasks:
+    - name: Copy GRUB configuration
+      template:
+        src: 'files/grub/grub'
+        dest: '/etc/default/grub'
+      notify: grub-mkconfig
+
+
+- name: Firefox
+  hosts: all
+
+  tasks:
+    - name: Ensure Firefox extensions folder exists
+      file:
+        path: "/usr/lib64/firefox/distribution/extensions"
+        state: directory
+
+    - name: Install firefox extensions
+      copy:
+        src: "{{ item }}"
+        dest: "/usr/lib64/firefox/distribution/extensions/"
+      loop:
+        - "files/firefox/uBlock0@raymondhill.net.xpi"
+
+
+- name: Bakaláři
+  hosts: teachers
+
+  tasks:
+    - name: Create a desktop shortcut for Bakaláři
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+      loop:
+        - src: "files/bakalari/bakalari.desktop"
+          dest: "/usr/share/applications/bakalari.desktop"
+        - src: "files/bakalari/bakalari.png"
+          dest: "/usr/share/icons/bakalari.png"

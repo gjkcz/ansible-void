@@ -1,0 +1,17 @@
+[org/gnome/desktop/input-sources]
+sources = [('xkb', 'us'), ('xkb', 'cz')]
+
+[org/gnome/desktop/a11y]
+always-show-universal-access-status = false
+
+[org/gnome/shell]
+favorite-apps = ['firefox.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop']
+
+[org/gnome/login-screen]
+disable-user-list = true
+
+[org/gnome/desktop/interface]
+gtk-theme = 'Adwaita-dark'
+
+[org/gnome/settings-daemon/plugins]
+sleep-inactive-ac-timeout = 0

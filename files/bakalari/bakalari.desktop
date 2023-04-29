@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Bakaláři
+Exec=/usr/bin/firefox https://dochazka.gjk.cz/login
+StartupNotify=true
+Terminal=false
+Type=Application
+Categories=Utility;
+Icon=/usr/share/icons/bakalari.png

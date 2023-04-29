@@ -1,0 +1,61 @@
+---
+timeout_blank: 1800
+timeout_lock: 30
+grub_timeout: 5
+
+ssh_keys:
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEm981GRiUIsp8e4bTDv+d9SyHfQ8P18W5oovgmAfnip em@x210
+  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqmyaaIqRU9hx8PxRnIqe/pRANIxrEEscuMWrHZF1yh snowflake@flakeX230
+
+xbps_install:
+  # General
+  - htop
+  - screen
+  - tmux
+  - vim
+  - nano
+  - curl
+  - wget
+  # Software development
+  - git
+  - gcc
+  - guile
+  - valgrind
+  - emacs
+  - vscode
+  - arduino
+  - arduino-cli
+  - idle-python3
+  # Web Browsers
+  - firefox
+  # Documents
+  - libreoffice
+  - texstudio
+  - texlive-bin
+  # Multimedia
+  - ffmpeg
+  - celluloid
+  - audacity
+  - gimp
+  - inkscape
+  - kdenlive
+  - shotcut
+  - krita
+  - mypaint
+  # CAD
+  - freecad
+  - openscad
+  - PrusaSlicer
+  # Databases
+  - sqlitebrowser
+  # Fun & games
+  - neofetch
+  - sl
+  - cowsay
+  - ponysay
+  - figlet
+  - asciiquarium
+  - cbonsai
+  - cmatrix
+  # - openarena
+xbps_remove:

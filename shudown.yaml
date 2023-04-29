@@ -1,0 +1,7 @@
+---
+- name: Shutdown all machines
+  hosts: all
+
+  tasks:
+    - name: Shutting down
+      community.general.shutdown:
