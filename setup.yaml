@@ -183,6 +183,44 @@
       notify: Update dconf database
 
 
+- name: PipeWire
+  hosts: all
+
+  tasks:
+    - name: Install PipeWire
+      community.general.xbps:
+        name:
+          - pipewire
+          - wireplumber
+        state: present
+
+    - name: Ensure configuration directories exist
+      file:
+        path: '/etc/pipewire/pipewire.conf.d/'
+        state: directory
+
+    - name: Copy PipeWire configuration
+      copy:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+      loop:
+        - src: 'files/pipewire/pipewire.conf'
+          dest: '/etc/pipewire/pipewire.conf'
+        - src: 'files/pipewire/10-wireplumber.conf'
+          dest: '/etc/pipewire/pipewire.conf.d/10-wireplumber.conf'
+
+    - name: Symlink PipeWire to autostart
+      file:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+      loop:
+        - src: '/usr/share/applications/pipewire.desktop'
+          dest: '/etc/xdg/autostart/pipewire.desktop'
+        - src: '/usr/share/applications/pipewire-pulse.desktop'
+          dest: '/etc/xdg/autostart/pipewire-pulse.desktop'
+
+
 - name: GRUB
   hosts: all
 
