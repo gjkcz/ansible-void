@@ -20,37 +20,29 @@
   hosts: all
 
   tasks:
-    - name: Install Software
+    - name: Install services
       community.general.xbps:
         name:
           - avahi
           - chrony
         state: present
 
-    - name: Enable Avahi service
+    - name: Enable services
       community.general.runit:
-        name: avahi-daemon
+        name: '{{ item }}'
         enabled: true
         state: started
+      loop:
+        - avahi-daemon
+        - chronyd
 
-    - name: Enable Chrony service
-      community.general.runit:
-        name: chronyd
-        enabled: true
-        state: started
-
-    - name: Disable wpa_supplicant
-      community.general.runit:
-        name: wpa_supplicant
-        enabled: false
-        state: stopped
-
-    - name: Disable redundant TTYs
+    - name: Disable unneeded services
       community.general.runit:
         name: '{{ item }}'
         enabled: false
         state: stopped
       loop:
+        - wpa_supplicant
         - agetty-tty3
         - agetty-tty4
         - agetty-tty5
