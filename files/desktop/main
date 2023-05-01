@@ -15,3 +15,6 @@ gtk-theme = 'Adwaita-dark'
 
 [org/gnome/settings-daemon/plugins]
 sleep-inactive-ac-timeout = 0
+
+[org/gnome/Weather]
+locations = [<(uint32 2, <('Prague', 'LKKB', true, [(0.87478393392930087, 0.25383384995537522)], [(0.87411906122272931, 0.25249097093961048)])>)>]
