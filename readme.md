@@ -9,8 +9,9 @@ GDM configuration can be found at <https://help.gnome.org/admin/system-admin-gui
 There are several differences in the hardware. System installation is usually done in EFI, though MBR still exists on older machines in POV.
 
 - Install Void
-- Update `xbps`
-- Install `python3`
+- Update `xbps`: `xbps-install -Su xbps`
+- Install `python3` and `avahi`: `xbps-install python3 avahi`
+- Enable avahi service: `ln -s /etc/sv/avai-deamon/ /var/service/`
 - Import your SSH key to `/root/.ssh/authorized_keys`
 
 Void has `sshd` enabled by default as well as having `prohibit-password` set for root. Post-installation setup can be automated using a script or USB keyboard injector.
