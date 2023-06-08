@@ -76,7 +76,7 @@
         path: '{{ item }}'
         owner: root
         group: root
-        mode: 644
+        mode: 0644
         state: touch
       loop:
         - /home/student/.bashrc
