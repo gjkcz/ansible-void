@@ -1,6 +1,7 @@
 ---
 - name: SSH
   hosts: all
+  tags: ssh
 
   tasks:
     - name: Ensure root ssh directory exists
@@ -18,6 +19,7 @@
 
 - name: General
   hosts: all
+  tags: general
 
   tasks:
     - name: Install services
@@ -51,6 +53,7 @@
 
 - name: Users
   hosts: all
+  tags: users
 
   tasks:
     - name: Set bash as default shell for root
@@ -88,6 +91,7 @@
 
 - name: Software
   hosts: all
+  tags: software
 
   tasks:
     - name: Add non-free repository
@@ -115,6 +119,9 @@
 
 - name: Gnome
   hosts: all
+  tags:
+    - gnome
+    - software
 
   handlers:
     - name: Update dconf database
@@ -177,6 +184,7 @@
 
 - name: PipeWire
   hosts: all
+  tags: pipewire
 
   tasks:
     - name: Install PipeWire
@@ -215,6 +223,7 @@
 
 - name: GRUB
   hosts: all
+  tags: grub
 
   handlers:
     - name: grub-mkconfig
@@ -247,6 +256,7 @@
 
 - name: Bakaláři
   hosts: teachers
+  tags: bakalari
 
   tasks:
     - name: Create a desktop shortcut for Bakaláři
