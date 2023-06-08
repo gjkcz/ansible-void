@@ -18,10 +18,21 @@ Void has `sshd` enabled by default as well as having `prohibit-password` set for
 
 ## Running a playbook
 
+Here are some examples for running a playbook.
+
 ```
 ansible-playbook setup.yaml
 ansible-playbook -l teachers setup.yaml
+ansible-playbook -l VU00.local setup.yaml
 ansible-playbook --key-file ~/.ssh/keys/gjk-ansible setup.yaml
+```
+
+Tags can be used to execute or exclude specific parts of the playbook.
+
+```
+ansible-playbook -t grub setup.yaml
+ansible-playbook -t [grub, software] setup.yaml
+ansible-playbook --skip-tags software setup.yaml
 ```
 
 ## SSH configuration
