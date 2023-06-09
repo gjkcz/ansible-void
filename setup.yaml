@@ -116,6 +116,12 @@
         recurse: true
       when: xbps_remove
 
+    - name: Clear xbps cache
+      command: 'xbps-remove -O'
+
+    - name: Purge old kernels
+      command: 'vkpurge rm all'
+
 
 - name: Gnome
   hosts: all
