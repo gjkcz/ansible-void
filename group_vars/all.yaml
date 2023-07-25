@@ -16,6 +16,7 @@ xbps_install:
   - nano
   - curl
   - wget
+  - pipr
   # Software development
   - git
   - gcc
