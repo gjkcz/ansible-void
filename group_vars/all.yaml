@@ -17,6 +17,7 @@ xbps_install:
   - curl
   - wget
   - pipr
+  - tree
   # Software development
   - git
   - gcc
