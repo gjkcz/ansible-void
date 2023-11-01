@@ -88,12 +88,6 @@
         line: "DenyUsers student"
         create: true
 
-    - name: Copy session cleanup script
-      copy:
-        src: 'files/session-cleanup.sh'
-        dest: '/etc/gdm/PostSession/Default'
-        mode: '0755'
-
 
 - name: Software
   hosts: all
@@ -145,7 +139,6 @@
         name:
           - dbus
           - gnome
-          - gnome-apps
           - gdm
           - xorg  # Prevents a crash on some systems
           - mesa-vdpau
@@ -161,6 +154,12 @@
       loop:
         - dbus
         - gdm
+
+    - name: Copy session cleanup script
+      copy:
+        src: 'files/session-cleanup.sh'
+        dest: '/etc/gdm/PostSession/Default'
+        mode: '0755'
 
     - name: Enable autologin
       copy:
