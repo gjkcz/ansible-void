@@ -45,10 +45,6 @@
         state: stopped
       loop:
         - wpa_supplicant
-        - agetty-tty3
-        - agetty-tty4
-        - agetty-tty5
-        - agetty-tty6
 
 
 - name: Users
