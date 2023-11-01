@@ -11,10 +11,11 @@ There are several differences in the hardware. System installation is usually do
 - Install Void
 - Update `xbps`: `xbps-install -Su xbps`
 - Install `python3` and `avahi`: `xbps-install python3 avahi`
-- Enable avahi service: `ln -s /etc/sv/avai-deamon/ /var/service/`
+- Enable `avahi` service: `ln -s /etc/sv/avai-deamon/ /var/service/`
+- Enable `sshd` service: `ln -s /etc/sv/sshd/ /var/service`
 - Import your SSH key to `/root/.ssh/authorized_keys`
 
-Void has `sshd` enabled by default as well as having `prohibit-password` set for root. Post-installation setup can be automated using a script or USB keyboard injector.
+Void has `prohibit-password` for root in the default `sshd` configuration. Post-installation setup can be automated using a script or USB keyboard injector.
 
 ## Running a playbook
 
