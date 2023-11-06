@@ -61,4 +61,30 @@ xbps_install:
   - cbonsai
   - cmatrix
   # - openarena
+  # GNOME
+  # A custom list intead of `gnome-apps` meta package
+  - eog
+  - evince
+  - file-roller
+  - gsound
+  - gspell
+  - phodav
+  - dconf-editor
+  - bijiben
+  - gnome-calculator
+  - gnome-calendar
+  - gnome-clocks
+  - gnome-disk-utility
+  - gnome-font-viewer
+  - gnome-maps
+  - gnome-system-monitor
+  - gnome-console
+  - gnome-text-editor
+  - gnome-tweaks
+  - gnome-weather
+  - gnome-boxes
+  - gnome-screenshot
+  - gnome-sound-recorder
+  - gnome-dictionary
 xbps_remove:
+  - gnome-apps
