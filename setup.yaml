@@ -99,11 +99,24 @@
       community.general.xbps:
         upgrade: true
 
-    - name: Install packages
+    - name: Install common packages
       community.general.xbps:
         name: '{{ xbps_install }}'
         state: present
       when: xbps_install
+
+    - name: Install video drivers
+      community.general.xbps:
+        name:
+          - mesa-dri
+          - vulkan-loader
+          - mesa-vulkan-radeon
+          - amdvlk
+          - xf86-video-amdgpu
+          - mesa-vaapi
+          - mesa-vdpau
+          - intel-video-accel
+          - mesa-vulkan-intel
 
     - name: Recursively remove packages
       community.general.xbps:
