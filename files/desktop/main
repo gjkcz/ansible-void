@@ -6,6 +6,7 @@ always-show-universal-access-status = false
 
 [org/gnome/shell]
 favorite-apps = ['firefox.desktop', 'org.gnome.Console.desktop', 'org.gnome.Nautilus.desktop']
+enabled-extensions = ['launch-new-instance@gnome-shell-extensions.gcampax.github.com','apps-menu@gnome-shell-extensions.gcampax.github.com']
 
 [org/gnome/login-screen]
 disable-user-list = true
