@@ -12,23 +12,32 @@ xbps_install:
   - htop
   - screen
   - tmux
-  - vim
-  - nano
   - curl
   - wget
   - pipr
   - tree
   - fd
+  - shellcheck
   # Software development
   - git
   - gcc
   - guile
   - valgrind
+  - gdb
+  - vim
+  - nano
   - emacs
   - vscode
   - arduino
   - arduino-cli
   - idle-python3
+  - platformio
+  # Networking
+  - tcpdump
+  - nmap
+  - zenmap
+  - wireshark-qt
+  - sqlmap
   # Web Browsers
   - firefox
   # Documents
