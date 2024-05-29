@@ -6,7 +6,7 @@ GDM configuration can be found at <https://help.gnome.org/admin/system-admin-gui
 
 ## New client installation
 
-There are several differences in the hardware. System installation is usually done in EFI, though MBR still exists on older machines in POV.
+There are several differences in the hardware. System installation is usually done in EFI, ~though MBR still exists on older machines in POV~.
 
 - Install Void
 - Update `xbps`: `xbps-install -Su xbps`
