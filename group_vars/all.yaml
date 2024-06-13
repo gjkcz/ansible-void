@@ -70,7 +70,7 @@ xbps_install:
   - asciiquarium
   - cbonsai
   - cmatrix
-  # - openarena
+  - openarena
   # GNOME
   # A custom list intead of `gnome-apps` meta package
   - eog
