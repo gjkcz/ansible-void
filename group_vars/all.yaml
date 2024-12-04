@@ -3,10 +3,6 @@ timeout_blank: 1800
 timeout_lock: 30
 grub_timeout: 10
 
-ssh_keys:
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEm981GRiUIsp8e4bTDv+d9SyHfQ8P18W5oovgmAfnip em@x210
-  - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqmyaaIqRU9hx8PxRnIqe/pRANIxrEEscuMWrHZF1yh snowflake@flakeX230
-
 xbps_install:
   # General
   - htop

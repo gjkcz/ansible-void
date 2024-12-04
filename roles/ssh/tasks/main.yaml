@@ -1,0 +1,14 @@
+- name: Ensure SSH directory exists
+  file:
+    path: "{{ ssh_dir }}"
+    state: directory
+    owner: "{{ ssh_user }}"
+    group: "{{ ssh_user }}"
+    mode: 0700
+
+- name: Import SSH keys
+  authorized_key:
+    user: "{{ ssh_user }}"
+    key: "{{ item }}"
+    state: present
+  loop: "{{ ssh_keys }}"

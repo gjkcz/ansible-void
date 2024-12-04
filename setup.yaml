@@ -2,19 +2,12 @@
 - name: SSH
   hosts: all
   tags: ssh
-
-  tasks:
-    - name: Ensure root ssh directory exists
-      file:
-        path: /root/.ssh
-        state: directory
-
-    - name: Import SSH keys
-      authorized_key:
-        user: root
-        key: '{{ item }}'
-        state: present
-      loop: '{{ ssh_keys }}'
+  roles:
+    - role: ssh
+      vars:
+        ssh_keys:
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEm981GRiUIsp8e4bTDv+d9SyHfQ8P18W5oovgmAfnip em@x210
+          - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqmyaaIqRU9hx8PxRnIqe/pRANIxrEEscuMWrHZF1yh snowflake@flakeX230
 
 
 - name: General
@@ -273,18 +266,9 @@
       loop:
         - "files/firefox/uBlock0@raymondhill.net.xpi"
 
-
 - name: Bakaláři
   hosts: teachers
-  tags: bakalari
-
   tasks:
-    - name: Create a desktop shortcut for Bakaláři
-      copy:
-        src: "{{ item.src }}"
-        dest: "{{ item.dest }}"
-      loop:
-        - src: "files/bakalari/bakalari.desktop"
-          dest: "/usr/share/applications/bakalari.desktop"
-        - src: "files/bakalari/bakalari.png"
-          dest: "/usr/share/icons/bakalari.png"
+    - name: Bakaláři
+      include_role:
+        name: bakalari

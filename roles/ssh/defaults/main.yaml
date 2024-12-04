@@ -1,0 +1,3 @@
+ssh_user: root
+ssh_dir: /root/.ssh
+ssh_keys: []
