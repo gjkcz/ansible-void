@@ -266,9 +266,8 @@
       loop:
         - "files/firefox/uBlock0@raymondhill.net.xpi"
 
+
 - name: Bakaláři
   hosts: teachers
-  tasks:
-    - name: Bakaláři
-      include_role:
-        name: bakalari
+  roles:
+    - bakalari

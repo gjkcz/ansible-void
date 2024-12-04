@@ -1,0 +1,4 @@
+bakalari_desktop_src: bakalari.desktop
+bakalari_desktop_dest: /usr/share/applications/bakalari.desktop
+bakalari_icon_src: bakalari.png
+bakalari_icon_dest: /usr/share/icons/bakalari.png

@@ -1,0 +1,21 @@
+- name: Ensure the applications directory exists
+  file:
+    path: /usr/share/applications
+    state: directory
+
+- name: Ensure the icons directory exists
+  file:
+    path: /usr/share/icons
+    state: directory
+
+- name: Copy Bakaláři desktop shortcut
+  copy:
+    src: bakalari.desktop
+    dest: /usr/share/applications/bakalari.desktop
+    mode: 0644
+
+- name: Copy Bakaláři icon
+  copy:
+    src: bakalari.png
+    dest: /usr/share/icons/bakalari.png
+    mode: 0644
