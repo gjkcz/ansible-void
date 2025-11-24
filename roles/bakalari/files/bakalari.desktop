@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=Bakaláři
-Exec=/usr/bin/firefox https://dochazka.gjk.cz/login
+Exec=/usr/bin/firefox https://gjk.bakalari.cz/login
 StartupNotify=true
 Terminal=false
 Type=Application
