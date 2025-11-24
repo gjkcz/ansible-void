@@ -2,7 +2,7 @@ Ansible files for managing classroom machines at GJK.
 
 There are two classrooms, POV and POM. All machines are running [Void Linux](https://voidlinux.org/) with [Gnome](https://www.gnome.org/) in dual-boot with Windows.
 
-GDM configuration can be found at <https://help.gnome.org/admin/system-admin-guide/stable/index.html.en>.
+GDM configuration can be found at <https://help.gnome.org/system-admin-guide/index.html>.
 
 ## New client installation
 
