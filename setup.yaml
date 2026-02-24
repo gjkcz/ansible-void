@@ -96,7 +96,6 @@
       community.general.xbps:
         name: '{{ xbps_install }}'
         state: present
-      when: xbps_install
 
     - name: Install video drivers
       community.general.xbps:
@@ -116,7 +115,6 @@
         name: '{{ xbps_remove }}'
         state: absent
         recurse: true
-      when: xbps_remove
 
     - name: Clear xbps cache
       command: 'xbps-remove -O'
@@ -212,15 +210,18 @@
         path: '/etc/pipewire/pipewire.conf.d/'
         state: directory
 
-    - name: Copy PipeWire configuration
-      copy:
-        src: '{{ item.src }}'
-        dest: '{{ item.dest }}'
-      loop:
-        - src: 'files/pipewire/pipewire.conf'
-          dest: '/etc/pipewire/pipewire.conf'
-        - src: 'files/pipewire/10-wireplumber.conf'
-          dest: '/etc/pipewire/pipewire.conf.d/10-wireplumber.conf'
+    - name: Enable wireplumber pipewire config
+      file:
+        src: '/usr/share/examples/wireplumber/10-wireplumber.conf'
+        dest: '/etc/pipewire/pipewire.conf.d/10-wireplumber.conf'
+        state: link
+
+    - name: Enable pipewire-pulse config
+      ansible.builtin.file:
+        src: '/usr/share/examples/pipewire/20-pipewire-pulse.conf'
+        dest: '/etc/pipewire/pipewire.conf.d/20-pipewire-pulse.conf'
+        state: link
+        force: true
 
     - name: Symlink PipeWire to autostart
       file:
