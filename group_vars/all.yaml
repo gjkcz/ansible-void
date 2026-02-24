@@ -54,11 +54,10 @@ xbps_install:
   # CAD
   - freecad
   - openscad
-  - PrusaSlicer
   # Databases
   - sqlitebrowser
   # Fun & games
-  - neofetch
+  - fastfetch
   - sl
   - cowsay
   - ponysay
