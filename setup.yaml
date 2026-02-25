@@ -123,6 +123,53 @@
       command: 'vkpurge rm all'
 
 
+- name: Flatpak
+  hosts: all
+  tags: flatpak
+
+  tasks:
+    - name: Install Flatpak
+      package:
+        name: flatpak
+        state: present
+
+    - name: Add Flathub remote
+      community.general.flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://flathub.org/repo/flathub.flatpakrepo
+        method: system
+
+    - name: Install Flatpak applications
+      community.general.flatpak:
+        name: "{{ item }}"
+        state: present
+        remote: flathub
+        method: system
+      loop: "{{ flatpak_install }}"
+
+    - name: Update all installed Flatpaks
+      command: flatpak update -y
+      register: flatpak_update
+      changed_when: "'Nothing to do.' not in flatpak_update.stdout"
+
+    - name: Ensure Flatpak export paths are in XDG_DATA_DIRS
+      copy:
+        dest: /etc/profile.d/flatpak.sh
+        mode: '0644'
+        content: |
+          # Flatpak desktop file integration
+          if [ -d /var/lib/flatpak/exports/share ]; then
+              XDG_DATA_DIRS="/var/lib/flatpak/exports/share:${XDG_DATA_DIRS:-/usr/local/share:/usr/share}"
+          fi
+
+          if [ -d "$HOME/.local/share/flatpak/exports/share" ]; then
+              XDG_DATA_DIRS="$HOME/.local/share/flatpak/exports/share:$XDG_DATA_DIRS"
+          fi
+
+          export XDG_DATA_DIRS
+
+
 - name: Gnome
   hosts: all
   tags:

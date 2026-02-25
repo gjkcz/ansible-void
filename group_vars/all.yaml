@@ -3,6 +3,10 @@ timeout_blank: 1800
 timeout_lock: 30
 grub_timeout: 10
 
+flatpak_install:
+  - com.prusa3d.PrusaSlicer
+  - cc.arduino.IDE2
+
 xbps_install:
   # General
   - htop
@@ -24,8 +28,6 @@ xbps_install:
   - nano
   - emacs
   - vscode
-  - arduino
-  - arduino-cli
   - idle-python3
   - platformio
   - openjdk
@@ -65,7 +67,6 @@ xbps_install:
   - asciiquarium
   - cbonsai
   - cmatrix
-  # - openarena
   # GNOME
   # A custom list intead of `gnome-apps` meta package
   - eog
@@ -93,3 +94,6 @@ xbps_install:
   - gnome-dictionary
 xbps_remove:
   - gnome-apps
+  - arduino  # Old version; Install flatpak for v2
+  - arduino-cli
+  - PrusaSlicer  # Removed from Void repos; Install Flatpak
